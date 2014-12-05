@@ -1,0 +1,22 @@
+﻿@using MyGigyaSite.Models
+@model AppUser
+@{
+    ViewBag.Title = "MissingFields";
+}
+
+<h2>MissingFields</h2>
+
+@*Gigya Social Login Step 8.b*@
+@using (Html.BeginForm("SocialSignIn", "Account", new { }, FormMethod.Post, new { }))
+{
+    <p style="color:red">We need some additional information from you to complete your registration.</p>
+
+    <div>
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email)
+    </div>
+    @Html.HiddenFor(m => m.AppUserID, new { value = ViewBag.AppUserID });
+    <input type="submit" value="Register" />
+    
+    // TODO: We would have to do immediate email verification
+}

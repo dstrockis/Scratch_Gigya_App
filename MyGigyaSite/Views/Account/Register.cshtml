@@ -1,0 +1,52 @@
+﻿@using MyGigyaSite.Models
+@model AppUser
+@{
+    ViewBag.Title = "Register";
+}
+
+<h2>Register</h2>
+
+@using (Html.BeginForm("Register", "Account", new { }, FormMethod.Post, new { id = "register-form", onsubmit = "return checkPassword();"}))
+{
+    if (ViewBag.Error != null)
+    {
+        <p style="color:red">@ViewBag.Error</p>
+    }
+    if (ViewBag.Exists != null)
+    { 
+        <p>
+            We found an existing account with that email address.
+            If you would like to create a local email & password for your account,
+            register here.  Otherwise, login with one of your social accounts.
+        </p>
+    }
+    <div>
+        @Html.LabelFor(m => m.Email)
+        @Html.TextBoxFor(m => m.Email, new { value = ViewBag.Email })
+    </div>
+    <div>
+        @Html.LabelFor(m => m.Password)
+        @Html.PasswordFor(m => m.Password)
+    </div>
+    <div>
+        @Html.Label("Confirm Password")
+        @Html.Password("confirm-password")
+    </div>
+    <input type="submit" value="Register" />
+}
+
+
+<script>
+
+    function checkPassword() {
+        var $form = $("#register-form");
+        var pass1 = $form[0].elements["Password"].value;
+        var pass2 = $form[0].elements["confirm-password"].value;
+        if (pass1 != pass2) {
+            alert("Passwords must match, dude.");
+            return false;
+        }
+        return true;
+    }
+
+</script>
